@@ -1,0 +1,6 @@
+widget:
+  build: .
+  expose:
+   - "3000"
+  hostname: "widget"
+

@@ -1,0 +1,4 @@
+docker build -t garystafford/widget .
+docker run -d garystafford/widget
+docker logs garystafford/widget
+docker exec -it garystafford/widget /bin/bash env
