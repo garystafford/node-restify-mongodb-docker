@@ -6,4 +6,22 @@ docker run -d garystafford/widget
 docker logs garystafford/widget
 docker exec -it garystafford/widget /bin/bash env
 
+export NODE_ENV=production; export MONGO_PORT=27018; grunt mongoimport
+export NODE_ENV=production; export MONGO_PORT=27018; grunt mongoimport --verbose
+
 mongo localhost:27018
+use node-restify-mongodb-production
+db.widgets.find()
+
+mongo
+use node-restify-mongodb-production
+db.dropDatabase()
+show dbs
+
+search_term_here=garystafford/widget && \
+docker ps -a --no-trunc  | grep $search_term_here | awk "{print $1}" | xargs -r --no-run-if-empty docker stop && \
+docker ps -a --no-trunc  | grep $search_term_here | awk "{print $1}" | xargs -r --no-run-if-empty docker rm && \
+docker images --no-trunc | grep $search_term_here | awk "{print $3}" | xargs -r --no-run-if-empty docker rmi
+
+docker network ls
+docker network inspect generatorrestifymongodocker_default
