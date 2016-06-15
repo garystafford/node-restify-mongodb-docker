@@ -1,4 +1,9 @@
 docker build -t garystafford/widget .
+docker-compose up
+docker-compose up widget
+
 docker run -d garystafford/widget
 docker logs garystafford/widget
 docker exec -it garystafford/widget /bin/bash env
+
+mongo localhost:27018

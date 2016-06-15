@@ -1,6 +1,15 @@
 widget:
-  build: .
-  expose:
-   - "3000"
+  image: garystafford/widget:latest
+  ports:
+    - "3001:3000"
+  links:
+   - mongodb
   hostname: "widget"
 
+mongodb:
+  image: mongo:3.3
+  ports:
+    - "27018:27017"
+  volumes:
+    - /data/db:/data/db
+  restart: always
