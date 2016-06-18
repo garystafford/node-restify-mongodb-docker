@@ -3,26 +3,47 @@
 #### Introduction
 Project to my Dockerize the [Node-Restify-MongoDB](https://github.com/garystafford/node-restify-mongodb) GitHub project
 
-Docker Commands
+Build project with Docker
 ``` bash
 docker build -t garystafford/widget .
-docker-compose up -d
-docker-compose up -d widget
 
-docker logs garystafford/widget
-docker exec -it garystafford/widget /bin/bash env
+docker-compose up -d
+```
+
+Import sample widget documents into MongoDB
+from the Node-Restify-MongoDB project's root directory
+``` bash
+# import to local development environment db instance
+NODE_ENV=development MONGO_PORT=27017 grunt mongoimport --verbose
+
+import to container-based production environment db instance
+NODE_ENV=production MONGO_PORT=27018 grunt mongoimport --verbose
+```
+
+Test running project
+```
+curl -X GET -H "Accept: application/json" "http://localhost:3000/widgets"
+
+npm install -g json
+curl -X GET -H "Accept: application/json" "http://localhost:3000/widgets" --silent | json
+curl -X GET -H "Accept: application/json" "http://localhost:3000/widgets/SVHXPAWEOD" --silent | json
+```
+
+Misc. Docker commands
+``` bash
+docker logs widget
+docker exec -it widget /bin/bash
 
 docker network ls
 docker network inspect generatorrestifymongodocker_default
-```
-Import sample widget documents into MongoDB from Node-Restify-MongoDB project root directory
-``` bash
-# local development environment db instance
-grunt mongoimport
 
-# container-based production environment db instance
-export NODE_ENV=production; export MONGO_PORT=27018; grunt mongoimport --verbose
+# optional: remove all <none> images
+docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
+
+# optional: delete and rebuild project containers
+docker rm mongodb --f ; docker rm widget --f; docker-compose up -d
 ```
+
 View sample widget documents in MongoDB
 ```
 # local development environment db instance
@@ -36,6 +57,8 @@ mongo localhost:27018
 use node-restify-mongodb-production
 db.widgets.find()
 
-# to drop
+# to drop db
+use node-restify-mongodb-production
 db.dropDatabase()
 ```
+
