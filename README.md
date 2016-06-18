@@ -1,7 +1,7 @@
 ## Dockerize Node-Restify-MongoDB RESTful API Example
 
 #### Introduction
-Project to my Dockerize the [Node-Restify-MongoDB](https://github.com/garystafford/node-restify-mongodb) GitHub project
+Dockerize the GitHub project, [Node-Restify-MongoDB](https://github.com/garystafford/node-restify-mongodb).
 
 Project's Docker Images
 ``` text
