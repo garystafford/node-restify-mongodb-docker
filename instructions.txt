@@ -1,12 +1,11 @@
 docker build -t garystafford/widget .
-docker-compose up
-docker-compose up widget
+docker-compose up -d
+docker-compose up -d widget
 
 docker run -d garystafford/widget
 docker logs garystafford/widget
 docker exec -it garystafford/widget /bin/bash env
 
-export NODE_ENV=production; export MONGO_PORT=27018; grunt mongoimport
 export NODE_ENV=production; export MONGO_PORT=27018; grunt mongoimport --verbose
 
 mongo localhost:27018
