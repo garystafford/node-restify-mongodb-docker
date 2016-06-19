@@ -63,7 +63,11 @@ docker network inspect generatorrestifymongodocker_default
 docker rmi $(docker images | grep "^<none>" | awk "{print $3}")
 
 # optional: delete and rebuild project containers
-docker rm mongodb --f ; docker rm widget --f; docker-compose up -d
+docker rm mongodb -f; \
+docker rm widget -f; \
+docker rmi garystafford/widget; \
+docker build -t garystafford/widget . && \
+docker-compose up -d
 ```
 
 View sample widget documents in MongoDB
